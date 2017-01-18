@@ -1,7 +1,7 @@
 # Analysis
 
 # Set up
-setwd('~/Documents/info-498c/demos/gbd/disability-weights/')
+setwd('~/health/demos/gbd/disability-weights/')
 library(dplyr)
 library(tidyr)
 
@@ -13,16 +13,16 @@ global.data <- read.csv('./data/prepped/global_burden.csv', stringsAsFactors = F
 global.data[is.na(global.data)] <- 0
 
 # What disease was responsible for the most burden (by each metric)?
-
+max <- filter(global.data, dalys ==max(dalys) | ylds == max(ylds) | deaths == max(deaths) | ylls == max(ylls))
 
 # Using prevalence and YLDs, calculate inferred disability weights (not actual weights in the study)
-
+weights <- mutate(global.data, disability.weight = ylds/prevalence)
 
 # See anything strange about the estimated disability weights?
 
 
 # Which diseases have more YLDs than YLLs (and ylls > 0)?
-
+big <- filter(global.data, ylls > 0 & ylds > ylls)
 
 # How many times higher is the prevalence than the number of deaths for these diseases?
 
